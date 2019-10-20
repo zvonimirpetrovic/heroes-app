@@ -33,11 +33,24 @@ export class HeroService {
   
   /** GET hero by id. 404 if not found */
   getHero(id: number): Observable<Hero> {
-    const url = '${this.heroesUrl}/${id}';
+    const url = `${this.heroesUrl}/${id}`;
     return this.http.get<Hero>(url).pipe(
-      tap(_ => this.log('fetched hero ud=${id}')),
+      tap(_ => this.log('fetched hero id=${id}')),
       catchError(this.handleError<Hero>('getHero id=${id}'))
     );
+  }
+
+  /** PUT: update the hero on the server */
+  updateHero (hero: Hero):Observable<any> {
+    return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
+      tap(_ => this.log('updated hero id=${hero.id}')),
+      catchError(this.handleError<any>('updateHero'))
+    )
+  }
+
+  /** Http header options */
+  httpOptions = {
+    headers:new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
   /**

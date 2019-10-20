@@ -33,5 +33,11 @@ export class HeroDetailComponent implements OnInit {
     this.heroService.getHero(id)
       .subscribe(hero => this.hero = hero);
   }
+  
+  /** Persist hero name changes and pass it to updateHero method */
+  save(): void{
+    this.heroService.updateHero(this.hero)
+      .subscribe(() => this.goBack());
+  }
 
 }
