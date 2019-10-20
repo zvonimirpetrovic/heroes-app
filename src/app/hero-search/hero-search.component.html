@@ -1,0 +1,15 @@
+<div id="search-component">
+    <h4><label for="search-box">Hero Search</label></h4>
+
+
+    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+    <ul class="search-result">
+        <!-- heroes$ - Observable, *ngFor can't iterate through observable so asyncPipe is used-->
+        <li *ngFor="let hero of heroes$ | async" > 
+            <a routerLink="/detail/{{hero.id}}">
+                {{hero.name}}
+            </a>
+        </li>
+    </ul>
+</div>
